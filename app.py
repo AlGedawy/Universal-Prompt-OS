@@ -1,5 +1,60 @@
 import streamlit as st
 
+# ==========================================
+# CONSTANT TEMPLATES & STRINGS (Defined Globally to Prevent Parsing Errors)
+# ==========================================
+VERIFICATION_STRING = "1. Generate a latent factual validation array in memory.\n2. Cross-examine all claims against the provided data feed.\n3. If data is insufficient for absolute certainty, print [INSUFFICIENT_DATA_ERROR].\n4. Correct all semantic anomalies before printing the final response."
+
+XML_TEMPLATE = """**[SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0]**
+**{TRIGGER}**
+**[COMPILING_STATE: SYSTEM_RESOLVED]**
+
+{MITIGATION}
+
+<system_directive>
+You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.
+</system_directive>
+
+<isolated_instruction>
+Objective Action: {REQUEST}
+Format Execution Policy: {POLICY}
+</isolated_instruction>
+
+<immutable_constraints>
+{BOUNDS}
+</immutable_constraints>
+
+<dynamic_data_feed>
+[Insert Raw Data / Documents Here if applicable. If not, rely strictly on grounded parametric memory.]
+</dynamic_data_feed>
+
+<verification_matrix>
+{VERIFICATION}
+</verification_matrix>
+
+**EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints."""
+
+MARKDOWN_TEMPLATE = """# SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0
+**{TRIGGER}**
+**COMPILING_STATE: SYSTEM_RESOLVED**
+
+{MITIGATION}
+
+## 1. System Directive
+You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.
+
+## 2. Isolated Instruction
+* **Objective Action:** {REQUEST}
+* **Format Execution Policy:** {POLICY}
+
+## 3. Immutable Constraints
+{BOUNDS}
+
+## 4. Verification Matrix
+{VERIFICATION}
+
+**EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints."""
+
 # 1. Page Configuration Setup (Rigid Corporate Identity)
 st.set_page_config(
     page_title="PROMPT_OS // McKinsey & Co. Design System", 
@@ -13,14 +68,12 @@ st.markdown("""
 <style>
     @import url('https://googleapis.com');
     
-    /* Document Root Definition - Absolute Contrast Rules */
     html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
         background-color: #FFFFFF !important;
         font-family: 'Inter', sans-serif !important;
         color: #051C2C !important;
     }
     
-    /* McKinsey Bower Signature Serif Title */
     .mckinsey-title {
         font-family: 'Lora', Georgia, serif;
         font-size: 2.4rem;
@@ -42,16 +95,14 @@ st.markdown("""
         padding-bottom: 12px;
     }
     
-    /* Institutional Layout Cards - Sharply Boxed Geometric Curves */
     div[data-testid="stVerticalBlock"] > div {
         background: #F8FAFC !important;
         border: 1px solid #E2E8F0 !important;
-        border-radius: 2px !important; /* Sharp institutional edges matching McKinsey design system */
+        border-radius: 2px !important;
         padding: 24px !important;
         box-shadow: none !important;
     }
     
-    /* Input Elements Overhaul - Absolute Contrast Control */
     .stTextArea textarea {
         background-color: #FFFFFF !important;
         border: 1px solid #051C2C !important;
@@ -82,7 +133,6 @@ st.markdown("""
         letter-spacing: 0.5px;
     }
     
-    /* Deep Blue Telemetry and Metric Callouts */
     .mckinsey-log-box {
         background: #051C2C !important;
         border-left: 4px solid #2251FF !important;
@@ -93,7 +143,6 @@ st.markdown("""
         color: #F8FAFC;
     }
     
-    /* Authoritative Primary Action Button */
     .stButton>button {
         background: #2251FF !important;
         color: #FFFFFF !important;
@@ -110,7 +159,6 @@ st.markdown("""
         background: #051C2C !important;
     }
     
-    /* High-Contrast Pristine Code Output Block */
     code, pre {
         background-color: #051C2C !important;
         color: #FFFFFF !important;
@@ -201,11 +249,9 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("### 📊 Operational Completion Metrics (KPIs)")
 kpi_col1, kpi_col2, kpi_col3 = st.columns(3)
 
-# Algorithmic calculation of inputs density to feed the diagnostic dashboard
 request_length = len(user_request.strip()) if user_request else 0
 constraints_length = len(constraints_input.strip()) if constraints_input else 0
 
-# 1. Prompt Density KPI
 if request_length == 0:
     density_score = 0
     density_status = "Critical Blank"
@@ -217,34 +263,3 @@ elif request_length < 150:
     density_status = "Optimal Stability"
 else:
     density_score = 100
-    density_status = "High Density Core"
-
-# 2. Structural Adherence KPI
-adherence_score = 100 if constraints_length > 0 else 40
-adherence_status = "Strict Isolation Active" if constraints_length > 0 else "Weak Constraints Warning"
-
-# 3. Mitigation Readiness KPI
-readiness_score = 100 if user_request and constraints_input else (60 if user_request else 0)
-readiness_status = "Production Deployment Ready" if readiness_score == 100 else "Pending Parameter Inputs"
-
-with kpi_col1:
-    st.metric(label="Prompt Density Score", value=f"{density_score}%", delta=density_status)
-with kpi_col2:
-    st.metric(label="Structural Adherence Factor", value=f"{adherence_score}%", delta=adherence_status)
-with kpi_col3:
-    st.metric(label="Mitigation Readiness Level", value=f"{readiness_score}%", delta=readiness_status)
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-# ==========================================
-# COMPILATION LOGIC (Text Replacement Protocol)
-# ==========================================
-if st.button("⚡ EXECUTE SYSTEM COMPILATION"):
-    if not user_request:
-        st.error("Error: Missing Objective Specification Core Parameters.")
-    else:
-        model_meta = MODEL_DATABASE[target_receiver]
-        output_meta = OUTPUT_DATABASE[product_format]
-        
-        verification_string = (
-            "1. Generate a latent factual validation array in memory.\n"
