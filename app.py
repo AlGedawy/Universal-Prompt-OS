@@ -11,7 +11,6 @@ st.set_page_config(
 # 2. Advanced Premium CSS Injection (Custom Dark Theme & Micro-Interactions)
 st.markdown("""
 <style>
-    /* Absolute Theme Resets & Typography */
     @import url('https://googleapis.com');
     
     html, body, [data-testid="stAppViewContainer"] {
@@ -20,9 +19,8 @@ st.markdown("""
         color: #E2E8F0 !important;
     }
     
-    /* Header & Branding Area */
     .brand-title {
-        font-family: 'JetBrains+Mono', monospace;
+        font-family: 'JetBrains Mono', monospace;
         font-size: 2.8rem;
         font-weight: 800;
         background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
@@ -40,7 +38,6 @@ st.markdown("""
         margin-bottom: 30px;
     }
     
-    /* Glassmorphism Input Cards */
     div[data-testid="stVerticalBlock"] > div {
         background: rgba(15, 23, 42, 0.6);
         border: 1px solid rgba(51, 65, 85, 0.5);
@@ -48,7 +45,6 @@ st.markdown("""
         padding: 5px;
     }
     
-    /* Sleek Custom Text Areas & Select Boxes */
     .stTextArea textarea, .stSelectbox div[data-baseweb="select"] {
         background-color: #020617 !important;
         border: 1px solid #1E293B !important;
@@ -62,7 +58,6 @@ st.markdown("""
         box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
     }
     
-    /* Kinetic Feedback Status Box */
     .status-box {
         background: rgba(14, 116, 144, 0.15) !important;
         border-left: 4px solid #06B6D4 !important;
@@ -73,7 +68,6 @@ st.markdown("""
         color: #22D3EE;
     }
     
-    /* High-Performance Action Button */
     .stButton>button {
         background: linear-gradient(135deg, #38BDF8 0%, #0369A1 100%) !important;
         color: #FFFFFF !important;
@@ -92,7 +86,6 @@ st.markdown("""
         box-shadow: 0 6px 24px rgba(56, 189, 248, 0.4) !important;
     }
     
-    /* Code Blocks Overhaul */
     code, pre {
         background-color: #020617 !important;
         border: 1px solid #334155 !important;
@@ -167,7 +160,6 @@ with col2:
     product_format = st.selectbox("Select Target Output Matrix Format:", list(OUTPUT_DATABASE.keys()))
     
     st.markdown("<br>", unsafe_allow_html=True)
-    # Interactive Kinetic Telemetry Box
     st.markdown(f"""
     <div class="status-box">
         <strong>⚙️ SYSTEM TELEMETRY LAYER:</strong><br>
@@ -187,61 +179,44 @@ if st.button("⚡ EXECUTE SYSTEM COMPILATION"):
         model_meta = MODEL_DATABASE[target_receiver]
         output_meta = OUTPUT_DATABASE[product_format]
         
-        verification_string = """
-1. Generate a latent factual validation array in memory.
-2. Cross-examine all claims against the provided data feed.
-3. If data is insufficient for absolute certainty, print [INSUFFICIENT_DATA_ERROR] instead of guessing.
-4. Correct all semantic anomalies before printing the final response.
-"""
+        verification_string = (
+            "1. Generate a latent factual validation array in memory.\n"
+            "2. Cross-examine all claims against the provided data feed.\n"
+            "3. If data is insufficient for absolute certainty, print [INSUFFICIENT_DATA_ERROR] instead of guessing.\n"
+            "4. Correct all semantic anomalies before printing the final response."
+        )
 
-        # Generate XML vs Markdown structural layout
+        bounds = constraints_input if constraints_input else "No deviations from first-principles reasoning allowed."
+
+        # Structured template assembly to avoid parsing issues
         if model_meta["tag_style"] == "XML":
-            final_prompt = f"""**[SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0]**
-**{model_meta['anchor_trigger']}**
-**[COMPILING_STATE: SYSTEM_RESOLVED]**
-
-{model_meta['mitigation_code']}
-
-<system_directive>
-You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.
-</system_directive>
-
-<isolated_instruction>
-Objective Action: {user_request}
-Format Execution Policy: {output_meta['instruction']}
-</isolated_instruction>
-
-<immutable_constraints>
-{constraints_input if constraints_input else "No deviations from first-principles reasoning allowed."}
-</immutable_constraints>
-
-<dynamic_data_feed>
-[Insert Raw Data / Documents Here if applicable. If not, rely strictly on grounded parametric memory.]
-</dynamic_data_feed>
-
-<verification_matrix>
-{verification_string}
-</verification_matrix>
-
-**EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints.
-"""
+            final_prompt = (
+                f"**[SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0]**\n"
+                f"**{model_meta['anchor_trigger']}**\n"
+                f"**[COMPILING_STATE: SYSTEM_RESOLVED]**\n\n"
+                f"{model_meta['mitigation_code']}\n\n"
+                f"<system_directive>\n"
+                f"You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.\n"
+                f"</system_directive>\n\n"
+                f"<isolated_instruction>\n"
+                f"Objective Action: {user_request}\n"
+                f"Format Execution Policy: {output_meta['instruction']}\n"
+                f"</isolated_instruction>\n\n"
+                f"<immutable_constraints>\n"
+                f"{bounds}\n"
+                f"</immutable_constraints>\n\n"
+                f"<dynamic_data_feed>\n"
+                f"[Insert Raw Data / Documents Here if applicable. If not, rely strictly on grounded parametric memory.]\n"
+                f"</dynamic_data_feed>\n\n"
+                f"<verification_matrix>\n"
+                f"{verification_string}\n"
+                f"</verification_matrix>\n\n"
+                f"**EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints."
+            )
         else:
-            final_prompt = f"""# SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0
-**{model_meta['anchor_trigger']}**
-**COMPILING_STATE: SYSTEM_RESOLVED**
-
-{model_meta['mitigation_code']}
-
-## 1. System Directive
-You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.
-
-## 2. Isolated Instruction
-* **Objective Action:** {user_request}
-* **Format Execution Policy:** {output_meta['instruction']}
-
-## 3. Immutable Constraints
-{constraints_input if constraints_input else "No deviations from first-principles reasoning allowed."}
-
-## 4. Verification Matrix
-{verification_string}
-
+            final_prompt = (
+                f"# SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0\n"
+                f"**{model_meta['anchor_trigger']}**\n"
+                f"**COMPILING_STATE: SYSTEM_RESOLVED**\n\n"
+                f"{model_meta['mitigation_code']}\n\n"
+                f"## 1. System Directive\n"
