@@ -1,6 +1,6 @@
 import streamlit as st
 
-# 1. Page Configuration & Premium Title Layout
+# 1. Page Configuration
 st.set_page_config(
     page_title="PROMPT_OS // v3.0", 
     page_icon="⚡", 
@@ -8,96 +8,119 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. Advanced Premium CSS Injection (Custom Dark Theme & Micro-Interactions)
+# 2. High-Contrast Enterprise Light CSS Injection
 st.markdown("""
 <style>
     @import url('https://googleapis.com');
     
-    html, body, [data-testid="stAppViewContainer"] {
-        background-color: #0B0F19 !important;
+    /* Global Background & Typography Reset */
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+        background-color: #F8FAFC !important;
         font-family: 'Inter', sans-serif !important;
-        color: #E2E8F0 !important;
+        color: #0F172A !important;
     }
     
+    /* Clean, Professional Minimalist Title */
     .brand-title {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 2.8rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #00F2FE 0%, #4FACFE 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        letter-spacing: -1.5px;
-        margin-bottom: 0px;
+        font-family: 'Inter', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0F172A;
+        letter-spacing: -0.5px;
+        margin-bottom: 2px;
     }
     .brand-subtitle {
         font-family: 'JetBrains Mono', monospace;
         color: #64748B;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 30px;
+        letter-spacing: 1.5px;
+        margin-bottom: 25px;
     }
     
+    /* Structured White Layout Cards with Soft Shadow */
     div[data-testid="stVerticalBlock"] > div {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(51, 65, 85, 0.5);
-        border-radius: 12px;
-        padding: 5px;
+        background: #FFFFFF !important;
+        border: 1px solid #E2E8F0 !important;
+        border-radius: 8px !important;
+        padding: 20px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
     }
     
-    .stTextArea textarea, .stSelectbox div[data-baseweb="select"] {
-        background-color: #020617 !important;
-        border: 1px solid #1E293B !important;
-        color: #F8FAFC !important;
-        font-family: 'Inter', sans-serif;
-        border-radius: 8px !important;
-        transition: all 0.3s ease;
+    /* High-Contrast Inputs (Dark Charcoal Text on Pure White Background) */
+    .stTextArea textarea {
+        background-color: #FFFFFF !important;
+        border: 1px solid #CBD5E1 !important;
+        color: #0F172A !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 0.9rem !important;
+        border-radius: 6px !important;
     }
     .stTextArea textarea:focus {
-        border-color: #38BDF8 !important;
-        box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2) !important;
+        border-color: #0284C7 !important;
+        box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.1) !important;
     }
     
+    /* High-Contrast Selectbox */
+    .stSelectbox div[data-baseweb="select"] {
+        background-color: #FFFFFF !important;
+        border: 1px solid #CBD5E1 !important;
+        color: #0F172A !important;
+        font-size: 0.9rem !important;
+        border-radius: 6px !important;
+    }
+    
+    /* Labels Styling (Smaller & Crisper) */
+    label p {
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        color: #334155 !important;
+    }
+    
+    /* Professional Steel Blue Telemetry Box */
     .status-box {
-        background: rgba(14, 116, 144, 0.15) !important;
-        border-left: 4px solid #06B6D4 !important;
-        padding: 15px !important;
-        border-radius: 0px 8px 8px 0px;
+        background: #F1F5F9 !important;
+        border-left: 4px solid #475569 !important;
+        padding: 12px !important;
+        border-radius: 4px;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.85rem;
-        color: #22D3EE;
+        font-size: 0.8rem;
+        color: #334155;
     }
     
+    /* Solid Corporate Action Button */
     .stButton>button {
-        background: linear-gradient(135deg, #38BDF8 0%, #0369A1 100%) !important;
+        background: #0F172A !important;
         color: #FFFFFF !important;
         border: none !important;
-        padding: 14px 28px !important;
-        font-weight: 600 !important;
+        padding: 12px 24px !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
         font-family: 'JetBrains Mono', monospace !important;
-        border-radius: 8px !important;
+        border-radius: 6px !important;
         width: 100% !important;
-        letter-spacing: 1px;
-        box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25) !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        letter-spacing: 0.5px;
+        transition: background 0.2s ease !important;
     }
     .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 24px rgba(56, 189, 248, 0.4) !important;
+        background: #1E293B !important;
     }
     
+    /* Clean Code Block Styling */
     code, pre {
-        background-color: #020617 !important;
-        border: 1px solid #334155 !important;
-        border-radius: 8px !important;
+        background-color: #0F172A !important;
+        color: #F8FAFC !important;
+        border: none !important;
+        border-radius: 6px !important;
         font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.85rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # 3. Branding Header
-st.markdown('<h1 class="brand-title">PROMPT_OS // METAMORPHIC</h1>', unsafe_allow_html=True)
-st.markdown('<p class="brand-subtitle">Universal Latent Space Operating System v3.0</p>', unsafe_allow_html=True)
+st.markdown('<h1 class="brand-title">Prompt_OS // Core</h1>', unsafe_allow_html=True)
+st.markdown('<p class="brand-subtitle">Universal Latent Space Compiler v3.0</p>', unsafe_allow_html=True)
 
 # ==========================================
 # CORE DATA ENGINE (The Knowledge Database)
@@ -107,19 +130,19 @@ MODEL_DATABASE = {
         "tag_style": "Markdown",
         "anchor_trigger": "[OBJECTIVE_FUNCTION: EXACT_BOUNDS]",
         "mitigation_code": "CRITICAL: Disable conversational filler. Enforce mathematical and formal logical boundaries. Validate all negative constraints before state convergence.",
-        "telemetry": "Active Status: Deep Cognitive Latent Search Forced. Manual CoT suppressed."
+        "telemetry": "Telemetry: Deep Cognitive Latent Search Engaged. Manual CoT Suppressed."
     },
     "Long-Context Architectures (Google Gemini 1.5/2.0, Claude 3.5 Sonnet)": {
         "tag_style": "XML",
         "anchor_trigger": "[ANCHOR_DENSITY: HIGHEST]",
         "mitigation_code": "SYSTEM DIRECTIVE: Maintain absolute semantic adherence throughout the entire text span. Neutralize middle-context attention decay by sequential node tracking.",
-        "telemetry": "Active Status: Context Optimization Mapping deployed. Middle-context dropping neutralized."
+        "telemetry": "Telemetry: Context Optimization Deployed. Attention Anchor Pins Matrix Active."
     },
     "Autonomous AI Agents & Execution Tools (LangChain, CrewAI, Terminal Exec)": {
         "tag_style": "XML",
         "anchor_trigger": "[AGENT_STATE: STATEFUL_MONITORING]",
         "mitigation_code": "AGENT CONSTRAINT: Print execution state and sub-goal validation parameters before calling any external tool. Prevent iterative logic looping.",
-        "telemetry": "Active Status: Stateful Loop Prevention Shield active. Runtime threshold monitored."
+        "telemetry": "Telemetry: Stateful Loop Prevention Active. Tool Execution Boundaries Enforced."
     }
 }
 
@@ -136,45 +159,44 @@ OUTPUT_DATABASE = {
 }
 
 # ==========================================
-# USER INTERFACE LAYOUT (Dynamic Compilation)
+# USER INTERFACE LAYOUT
 # ==========================================
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    st.markdown("### 📥 1. Core Target Dynamics")
+    st.markdown("### 📥 1. Core Objectives")
     user_request = st.text_area(
         "Objective Specification (The Raw Request):", 
-        height=140,
-        placeholder="e.g., Deconstruct the vulnerability vectors of decentralized finance smart contracts during liquidity drain stress tests..."
+        height=120,
+        placeholder="Type your primary task objective here..."
     )
     
     constraints_input = st.text_area(
         "Immutable Boundaries (Hard Negative Constraints):", 
-        height=110,
-        placeholder="e.g., Ban traditional audit checklists. Rely strictly on game theory models and zero-knowledge mathematical axioms..."
+        height=100,
+        placeholder="Type explicit restrictions or rules to enforce..."
     )
 
 with col2:
-    st.markdown("### 🎛️ 2. Architectural Adaptation Tuning")
-    target_receiver = st.selectbox("Select Targeted System Receiver Architecture:", list(MODEL_DATABASE.keys()))
-    product_format = st.selectbox("Select Target Output Matrix Format:", list(OUTPUT_DATABASE.keys()))
+    st.markdown("### 🎛️ 2. Architectural Tuning")
+    target_receiver = st.selectbox("Target Receiver Architecture:", list(MODEL_DATABASE.keys()))
+    product_format = st.selectbox("Target Output Format Matrix:", list(OUTPUT_DATABASE.keys()))
     
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(f"""
     <div class="status-box">
-        <strong>⚙️ SYSTEM TELEMETRY LAYER:</strong><br>
-        {MODEL_DATABASE[target_receiver]['telemetry']}
+        <strong>SYSTEM LOG:</strong> {MODEL_DATABASE[target_receiver]['telemetry']}
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # ==========================================
-# FABRIC COMPILATION PROTOCOL & OUTPUT
+# COMPILATION PROTOCOL
 # ==========================================
 if st.button("⚡ EXECUTE SYSTEM COMPILATION"):
     if not user_request:
-        st.error("COMPILATION CRITICAL ERROR: Empty Objective Specification. System execution halted.")
+        st.error("Error: Missing Objective Specification.")
     else:
         model_meta = MODEL_DATABASE[target_receiver]
         output_meta = OUTPUT_DATABASE[product_format]
@@ -182,13 +204,12 @@ if st.button("⚡ EXECUTE SYSTEM COMPILATION"):
         verification_string = (
             "1. Generate a latent factual validation array in memory.\n"
             "2. Cross-examine all claims against the provided data feed.\n"
-            "3. If data is insufficient for absolute certainty, print [INSUFFICIENT_DATA_ERROR] instead of guessing.\n"
+            "3. If data is insufficient for absolute certainty, print [INSUFFICIENT_DATA_ERROR].\n"
             "4. Correct all semantic anomalies before printing the final response."
         )
 
         bounds = constraints_input if constraints_input else "No deviations from first-principles reasoning allowed."
 
-        # Raw Text Templates to prevent any python string compilation failures
         xml_template = """**[SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0]**
 **{TRIGGER}**
 **[COMPILING_STATE: SYSTEM_RESOLVED]**
@@ -239,8 +260,4 @@ You are executing at the absolute threshold of elite AI systems architecture. Ad
 
 **EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints."""
 
-        # Absolute safe replacement mapping
         if model_meta["tag_style"] == "XML":
-            final_prompt = xml_template.replace("{TRIGGER}", model_meta['anchor_trigger'])
-            final_prompt = final_prompt.replace("{MITIGATION}", model_meta['mitigation_code'])
-            final_prompt = final_prompt.replace("{REQUEST}", user_request)
