@@ -188,35 +188,59 @@ if st.button("⚡ EXECUTE SYSTEM COMPILATION"):
 
         bounds = constraints_input if constraints_input else "No deviations from first-principles reasoning allowed."
 
-        # Structured template assembly to avoid parsing issues
+        # Raw Text Templates to prevent any python string compilation failures
+        xml_template = """**[SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0]**
+**{TRIGGER}**
+**[COMPILING_STATE: SYSTEM_RESOLVED]**
+
+{MITIGATION}
+
+<system_directive>
+You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.
+</system_directive>
+
+<isolated_instruction>
+Objective Action: {REQUEST}
+Format Execution Policy: {POLICY}
+</isolated_instruction>
+
+<immutable_constraints>
+{BOUNDS}
+</immutable_constraints>
+
+<dynamic_data_feed>
+[Insert Raw Data / Documents Here if applicable. If not, rely strictly on grounded parametric memory.]
+</dynamic_data_feed>
+
+<verification_matrix>
+{VERIFICATION}
+</verification_matrix>
+
+**EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints."""
+
+        markdown_template = """# SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0
+**{TRIGGER}**
+**COMPILING_STATE: SYSTEM_RESOLVED**
+
+{MITIGATION}
+
+## 1. System Directive
+You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.
+
+## 2. Isolated Instruction
+* **Objective Action:** {REQUEST}
+* **Format Execution Policy:** {POLICY}
+
+## 3. Immutable Constraints
+{BOUNDS}
+
+## 4. Verification Matrix
+{VERIFICATION}
+
+**EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints."""
+
+        # Absolute safe replacement mapping
         if model_meta["tag_style"] == "XML":
-            final_prompt = (
-                f"**[SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0]**\n"
-                f"**{model_meta['anchor_trigger']}**\n"
-                f"**[COMPILING_STATE: SYSTEM_RESOLVED]**\n\n"
-                f"{model_meta['mitigation_code']}\n\n"
-                f"<system_directive>\n"
-                f"You are executing at the absolute threshold of elite AI systems architecture. Adopt the appropriate domain expertise to full capacity.\n"
-                f"</system_directive>\n\n"
-                f"<isolated_instruction>\n"
-                f"Objective Action: {user_request}\n"
-                f"Format Execution Policy: {output_meta['instruction']}\n"
-                f"</isolated_instruction>\n\n"
-                f"<immutable_constraints>\n"
-                f"{bounds}\n"
-                f"</immutable_constraints>\n\n"
-                f"<dynamic_data_feed>\n"
-                f"[Insert Raw Data / Documents Here if applicable. If not, rely strictly on grounded parametric memory.]\n"
-                f"</dynamic_data_feed>\n\n"
-                f"<verification_matrix>\n"
-                f"{verification_string}\n"
-                f"</verification_matrix>\n\n"
-                f"**EXECUTION:** Initialize high-density processing flow now. Output result based on your operational constraints."
-            )
-        else:
-            final_prompt = (
-                f"# SYSTEM OPERATION COMMAND: UNIVERSAL METAMORPHIC PROMPT v3.0\n"
-                f"**{model_meta['anchor_trigger']}**\n"
-                f"**COMPILING_STATE: SYSTEM_RESOLVED**\n\n"
-                f"{model_meta['mitigation_code']}\n\n"
-                f"## 1. System Directive\n"
+            final_prompt = xml_template.replace("{TRIGGER}", model_meta['anchor_trigger'])
+            final_prompt = final_prompt.replace("{MITIGATION}", model_meta['mitigation_code'])
+            final_prompt = final_prompt.replace("{REQUEST}", user_request)
